@@ -2,6 +2,18 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/js/modules/forms.js":
+/*!*********************************!*\
+  !*** ./src/js/modules/forms.js ***!
+  \*********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const forms = () => {};
+/* harmony default export */ __webpack_exports__["default"] = (forms);
+
+/***/ }),
+
 /***/ "./src/js/modules/modals.js":
 /*!**********************************!*\
   !*** ./src/js/modules/modals.js ***!
@@ -10,8 +22,9 @@
 
 __webpack_require__.r(__webpack_exports__);
 const modals = () => {
+  let btnPressed;
   function bindModal(trigerSelector, modalSelector, closeSelector) {
-    let closeClickOverlay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+    let destroy = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
     const triger = document.querySelectorAll(trigerSelector);
     const modal = document.querySelector(modalSelector);
     const close = document.querySelector(closeSelector);
@@ -22,8 +35,13 @@ const modals = () => {
         if (e.target) {
           e.preventDefault();
         }
+        btnPressed = true;
+        if (destroy) {
+          item.remove();
+        }
         windows.forEach(item => {
           item.style.display = "none";
+          item.classList.add('animated', 'fadeIn');
         });
         modal.style.display = "block";
         document.body.classList.add("modal-open");
@@ -39,7 +57,7 @@ const modals = () => {
       document.body.style.marginRight = `0px`;
     });
     modal.addEventListener("click", e => {
-      if (e.target == modal && closeClickOverlay) {
+      if (e.target == modal) {
         windows.forEach(item => {
           item.style.display = "none";
         });
@@ -60,6 +78,8 @@ const modals = () => {
       if (!display) {
         document.querySelector(selector).style.display = "block";
         document.body.style.overflow = "hidden";
+        let scroll = calcScroll();
+        document.body.style.marginRight = `${scroll}px`;
       }
     }, time);
   }
@@ -73,13 +93,92 @@ const modals = () => {
     let scrollWidth = div.offsetWidth - div.clientWidth;
     return scrollWidth;
   }
+  function showByScroll(selector) {
+    window.addEventListener('scroll', () => {
+      // let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)  для старых браузеров
+      if (!btnPressed && window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+        // <- scrollHeight подставить вместо 
+        document.querySelector(selector).click();
+      }
+    });
+  }
   bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
   bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
+  bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
+  showByScroll('.fixed-gift');
 
   // showModalByTime('.popup-consultation', 60000)
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
+
+/***/ }),
+
+/***/ "./src/js/modules/sliders.js":
+/*!***********************************!*\
+  !*** ./src/js/modules/sliders.js ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const sliders = (slides, dir, prev, next) => {
+  let slideIndex = 1;
+  let paused = false;
+  const items = document.querySelectorAll(slides);
+  function showSlides(n) {
+    if (n > items.length) {
+      slideIndex = 1;
+    }
+    if (n < 1) {
+      slideIndex = items.length;
+    }
+    items.forEach(slide => {
+      slide.classList.add("animated");
+      slide.style.display = "none";
+    });
+    items[slideIndex - 1].style.display = "block";
+  }
+  showSlides(slideIndex);
+  function changeSlide(n) {
+    showSlides(slideIndex += n);
+  }
+  try {
+    const prevBtn = document.querySelector(prev);
+    const nextBtn = document.querySelector(next);
+    prevBtn.addEventListener("click", () => {
+      changeSlide(-1);
+      items[slideIndex - 1].classList.remove("slideInLeft");
+      items[slideIndex - 1].classList.add("slideInRight");
+    });
+    nextBtn.addEventListener("click", () => {
+      changeSlide(1);
+      items[slideIndex - 1].classList.remove("slideInRight");
+      items[slideIndex - 1].classList.add("slideInLeft");
+    });
+  } catch (e) {}
+  function activateAnim() {
+    if (dir === "vertical") {
+      paused = setInterval(function () {
+        changeSlide(1);
+        items[slideIndex - 1].classList.add("slideInDown");
+      }, 3000);
+    } else {
+      paused = setInterval(function () {
+        changeSlide(1);
+        items[slideIndex - 1].classList.remove("slideInRight");
+        items[slideIndex - 1].classList.add("slideInLeft");
+      }, 3000);
+    }
+  }
+  activateAnim();
+  items[0].parentNode.addEventListener('mouseenter', () => {
+    clearInterval(paused);
+  });
+  items[0].parentNode.addEventListener('mouseleave', () => {
+    activateAnim();
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (sliders);
 
 /***/ })
 
@@ -130,9 +229,15 @@ var __webpack_exports__ = {};
   \************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
+/* harmony import */ var _modules_sliders__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/sliders */ "./src/js/modules/sliders.js");
+/* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
+
+
 
 window.addEventListener('DOMContentLoaded', () => {
   (0,_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  (0,_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])('.feedback-slider-item', 'horizontal', '.main-prev-btn', '.main-next-btn');
+  (0,_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])('.main-slider-item', 'vertical');
 });
 }();
 /******/ })()

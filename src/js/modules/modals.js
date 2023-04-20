@@ -1,9 +1,11 @@
 const modals = () => {
+  let btnPressed;
+
   function bindModal(
     trigerSelector,
     modalSelector,
     closeSelector,
-    closeClickOverlay = true
+    destroy = false
   ) {
     const triger = document.querySelectorAll(trigerSelector);
     const modal = document.querySelector(modalSelector);
@@ -17,8 +19,15 @@ const modals = () => {
           e.preventDefault();
         }
 
+        btnPressed = true
+
+        if(destroy) {
+          item.remove()
+        }
+
         windows.forEach((item) => {
           item.style.display = "none";
+          item.classList.add('animated', 'fadeIn')
         });
 
         modal.style.display = "block";
@@ -38,7 +47,7 @@ const modals = () => {
     });
 
     modal.addEventListener("click", (e) => {
-      if (e.target == modal && closeClickOverlay) {
+      if (e.target == modal) {
         windows.forEach((item) => {
           item.style.display = "none";
         });
@@ -61,6 +70,8 @@ const modals = () => {
       if(!display) {
         document.querySelector(selector).style.display = "block";
         document.body.style.overflow = "hidden";
+        let scroll = calcScroll()
+        document.body.style.marginRight = `${scroll}px`;
       }
       
     }, time);
@@ -79,8 +90,19 @@ const modals = () => {
     return scrollWidth;
   }
 
+  function showByScroll(selector) {
+    window.addEventListener('scroll', () => {
+      // let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)  для старых браузеров
+      if(!btnPressed && window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {// <- scrollHeight подставить вместо 
+        document.querySelector(selector).click()
+      }
+    })
+  }
+
   bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
   bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close')
+  bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true)
+  showByScroll('.fixed-gift')
   
   // showModalByTime('.popup-consultation', 60000)
 };
