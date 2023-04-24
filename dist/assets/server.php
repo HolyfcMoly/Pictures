@@ -1,2 +1,1 @@
-<?php
-echo var_dump($_POST);
+<pre><?php print_r($_POST); print_r($_FILES); ?></pre>
