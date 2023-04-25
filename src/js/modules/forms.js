@@ -1,4 +1,5 @@
 import {postData} from '../services/requests';
+import calc from './calc.js';
 
 const forms = () => {
 const form = document.querySelectorAll("form");
@@ -65,7 +66,11 @@ form.forEach((item) => {
     let api;
     item.closest('.popup-design') || item.classList.contains('calc_form') ? api = path.design : api = path.question
     console.log(api)
-    
+    formData.append('price', calc());
+    const data = {};
+    formData.forEach((v, k) => {
+        data[k] = v
+    })
 
     postData(api, formData)
         .then((res) => {

@@ -5,6 +5,7 @@ import mask from "./modules/mask";
 import checkTextInputs from "./modules/checkTextInputs";
 import checkCursorInput from "./modules/checkCursorInput";
 import showMoreStyles from "./modules/showMoreStyles";
+import calc from "./modules/calc";
 
 window.addEventListener('DOMContentLoaded', () => {
     
@@ -18,4 +19,5 @@ window.addEventListener('DOMContentLoaded', () => {
     checkTextInputs('[name="email"]')
     checkCursorInput('[name="phone"]')
     showMoreStyles('.button-styles', '#styles .row')
+    calc()
 })
