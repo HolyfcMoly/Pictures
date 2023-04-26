@@ -5,6 +5,9 @@ const forms = () => {
 const form = document.querySelectorAll("form");
 const input = document.querySelectorAll("input");
 const upload = document.querySelectorAll('[name="upload"')
+const select = document.querySelectorAll('select')
+const result = document.querySelector('.calc-price')
+const calcForm = document.querySelector('.calc_form')
 
 const message = {
     loading: "Загрузка...",
@@ -27,6 +30,10 @@ const clearInput = () => {
     upload.forEach(item => {
         item.previousElementSibling.textContent = 'Файл не выбран'
     })
+    select.forEach(item => {
+        item.selectedIndex = 0
+    })
+    result.textContent = 'Пожалуйста выберите размер и материал картины'
 };
 
 upload.forEach(item => {
@@ -66,11 +73,12 @@ form.forEach((item) => {
     let api;
     item.closest('.popup-design') || item.classList.contains('calc_form') ? api = path.design : api = path.question
     console.log(api)
-    formData.append('price', calc());
-    const data = {};
-    formData.forEach((v, k) => {
-        data[k] = v
+
+    const parameters = ['size', 'material', 'options'];
+    Object.values(calc().obj).forEach((value, key) => {
+        formData.append(parameters[key], value)
     })
+    formData.append('price', calc().sum);
 
     postData(api, formData)
         .then((res) => {

@@ -17,7 +17,8 @@ const calc = () => {
             resultBlock.textContent =
                 "Пожалуйста выберите размер и материал картины";
         } else if (promocodeBlock.value === "IWANTPOPART") {
-            resultBlock.textContent = Math.round(sum * 0.7);
+            sum = Math.round(sum * 0.7);
+            resultBlock.textContent = sum;
         } else {
             resultBlock.textContent = sum;
         }
@@ -27,12 +28,11 @@ const calc = () => {
             const material = materialBlock.value;
             const options = optionsBlock.value;
 
-            obj = {
+            return (obj = {
                 size,
                 material,
                 options,
-            };
-            return console.log(obj);
+            });
         };
         updateRes(obj);
     };
@@ -43,7 +43,7 @@ const calc = () => {
     optionsBlock.addEventListener("change", calcFunc);
     promocodeBlock.addEventListener("input", calcFunc);
 
-    return sum
+    return { sum, obj };
 };
 
 export default calc;
