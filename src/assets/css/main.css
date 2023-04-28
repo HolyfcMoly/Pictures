@@ -106,6 +106,12 @@ h4 {
   right: 2rem;
   cursor: pointer;
 }
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
 .header .container {
   padding: 0;
 }

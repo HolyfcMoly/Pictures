@@ -110,6 +110,83 @@ const checkTextInputs = selector => {
 
 /***/ }),
 
+/***/ "./src/js/modules/filter.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/filter.js ***!
+  \**********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+// Определение функции filter
+const filter = () => {
+  // Получение элементов DOM
+  const menu = document.querySelector(".portfolio-menu");
+  const items = menu.querySelectorAll("li");
+  const wrapper = document.querySelector(".portfolio-wrapper");
+  const no = document.querySelector(".portfolio-no");
+  const [btnAll, btnLovers, btnChef, btnGirl, btnGuy, btnGrandmother, btnGranddad] = menu.querySelectorAll('li');
+  const markAll = wrapper.querySelectorAll(".all");
+  const markGirl = wrapper.querySelectorAll(".girl");
+  const markLovers = wrapper.querySelectorAll(".lovers");
+  const markChef = wrapper.querySelectorAll(".chef");
+  const markGuy = wrapper.querySelectorAll(".guy");
+
+  // Определение функции typeFilter для фильтрации
+  const typeFilter = markType => {
+    // Скрытие всех фотографий
+    markAll.forEach(mark => {
+      mark.classList.add('hide');
+      mark.classList.remove("animated", "fadeIn", 'show');
+    });
+
+    // скрытие сообщения об отсутствии подходящих элементов
+    no.classList.add('hide');
+    no.classList.remove("animated", "fadeIn", 'show');
+
+    // Если передан параметр markType, показыаем соответствующие фотографии, 
+    // иначе - отображаем информацию о том, что результатов нет.
+    if (markType) {
+      markType.forEach(mark => {
+        mark.classList.remove('hide');
+        mark.classList.add("animated", "fadeIn", 'show');
+      });
+    } else {
+      no.classList.remove('hide');
+      no.classList.add("animated", "fadeIn", 'show');
+    }
+  };
+
+  // Определение функции btnsActive для активации выбранных фильтров
+  const btnsActive = (btnSelector, markSelector) => {
+    btnSelector.addEventListener('click', () => {
+      typeFilter(markSelector);
+    });
+  };
+
+  // назначение слушателя для каждого фильтра
+  btnsActive(btnAll, markAll);
+  btnsActive(btnLovers, markLovers);
+  btnsActive(btnChef, markChef);
+  btnsActive(btnGuy, markGuy);
+  btnsActive(btnGirl, markGirl);
+  btnsActive(btnGrandmother);
+  btnsActive(btnGranddad);
+
+  // назначение слушателя для элементов списка
+  menu.addEventListener("click", e => {
+    let target = e.target;
+
+    // выделение активного элемента в списке
+    if (target && target.tagName == "LI") {
+      items.forEach(btn => btn.classList.remove("active"));
+      target.classList.add("active");
+    }
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (filter);
+
+/***/ }),
+
 /***/ "./src/js/modules/forms.js":
 /*!*********************************!*\
   !*** ./src/js/modules/forms.js ***!
@@ -336,7 +413,7 @@ const modals = () => {
   function calcScroll() {
     let div = document.createElement("div");
     div.style.width = "50px";
-    div.style.height = "50px";
+    div.style.height = "0px";
     div.style.overflowY = "scroll";
     div.style.visibility = "hidden";
     document.body.appendChild(div);
@@ -594,6 +671,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_checkCursorInput__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/checkCursorInput */ "./src/js/modules/checkCursorInput.js");
 /* harmony import */ var _modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/showMoreStyles */ "./src/js/modules/showMoreStyles.js");
 /* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/calc */ "./src/js/modules/calc.js");
+/* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/filter */ "./src/js/modules/filter.js");
+
 
 
 
@@ -614,6 +693,7 @@ window.addEventListener('DOMContentLoaded', () => {
   (0,_modules_checkCursorInput__WEBPACK_IMPORTED_MODULE_5__["default"])('[name="phone"]');
   (0,_modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_6__["default"])('.button-styles', '#styles .row');
   (0,_modules_calc__WEBPACK_IMPORTED_MODULE_7__["default"])();
+  (0,_modules_filter__WEBPACK_IMPORTED_MODULE_8__["default"])();
 });
 }();
 /******/ })()

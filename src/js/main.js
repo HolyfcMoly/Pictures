@@ -6,6 +6,7 @@ import checkTextInputs from "./modules/checkTextInputs";
 import checkCursorInput from "./modules/checkCursorInput";
 import showMoreStyles from "./modules/showMoreStyles";
 import calc from "./modules/calc";
+import filter from "./modules/filter";
 
 window.addEventListener('DOMContentLoaded', () => {
     
@@ -20,4 +21,5 @@ window.addEventListener('DOMContentLoaded', () => {
     checkCursorInput('[name="phone"]')
     showMoreStyles('.button-styles', '#styles .row')
     calc()
+    filter()
 })
