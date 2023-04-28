@@ -7,6 +7,7 @@ import checkCursorInput from "./modules/checkCursorInput";
 import showMoreStyles from "./modules/showMoreStyles";
 import calc from "./modules/calc";
 import filter from "./modules/filter";
+import images from "./modules/images";
 
 window.addEventListener('DOMContentLoaded', () => {
     
@@ -22,4 +23,5 @@ window.addEventListener('DOMContentLoaded', () => {
     showMoreStyles('.button-styles', '#styles .row')
     calc()
     filter()
+    images('.sizes-block')
 })
