@@ -351,6 +351,9 @@ h4 {
   left: -4rem;
   top: 1rem;
 }
+.main-slider-item > img, .feedback-block > img {
+  max-width: 100%;
+}
 .main .p-button {
   text-align: center;
   color: #c51abb;
@@ -1289,6 +1292,20 @@ h4 {
   text-align: center;
 }
 
+.pageup {
+  opacity: 0;
+width: 26px ;
+height: 26px;
+position: fixed;
+bottom: 100px;
+right: 5%;
+z-index: 30;
+background-color: #fff;
+cursor: pointer;
+border: 1px solid white;
+  transition: 1s all;
+}
+
 @media (max-width: 1399px) {
   .paints {
     display: none;
@@ -1579,6 +1596,9 @@ h4 {
   .feedback .slick-slide img {
     left: 0;
     margin: 0 auto;
+  }
+  .feedback-slider {
+    height: 100% !important;
   }
   .feedback .button-order {
     left: 50%;

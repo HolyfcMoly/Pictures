@@ -10,6 +10,7 @@ import filter from "./modules/filter";
 import images from "./modules/images";
 import accordion from "./modules/accordion";
 import burger from "./modules/burger";
+import scrolling from "./modules/scrolling";
 
 window.addEventListener("DOMContentLoaded", () => {
     modals();
@@ -32,4 +33,5 @@ window.addEventListener("DOMContentLoaded", () => {
     images(".sizes-block");
     accordion(".accordion-heading");
     burger(".burger-menu", ".burger");
+    scrolling()
 });

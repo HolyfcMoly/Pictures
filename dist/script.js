@@ -559,11 +559,12 @@ const modals = () => {
   function calcScroll() {
     let div = document.createElement("div");
     div.style.width = "50px";
-    div.style.height = "0px";
+    div.style.height = "50px";
     div.style.overflowY = "scroll";
     div.style.visibility = "hidden";
     document.body.appendChild(div);
     let scrollWidth = div.offsetWidth - div.clientWidth;
+    div.remove();
     return scrollWidth;
   }
   function showByScroll(selector) {
@@ -584,6 +585,24 @@ const modals = () => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
+
+/***/ }),
+
+/***/ "./src/js/modules/scrolling.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/scrolling.js ***!
+  \*************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const scrolling = up => {
+  window.addEventListener('scroll', () => {
+    if (document.documentElement.scrollTop > 1650) {
+      console.log(1);
+    }
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (scrolling);
 
 /***/ }),
 
@@ -821,6 +840,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_images__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/images */ "./src/js/modules/images.js");
 /* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
 /* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
+/* harmony import */ var _modules_scrolling__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/scrolling */ "./src/js/modules/scrolling.js");
+
 
 
 
@@ -849,6 +870,7 @@ window.addEventListener("DOMContentLoaded", () => {
   (0,_modules_images__WEBPACK_IMPORTED_MODULE_9__["default"])(".sizes-block");
   (0,_modules_accordion__WEBPACK_IMPORTED_MODULE_10__["default"])(".accordion-heading");
   (0,_modules_burger__WEBPACK_IMPORTED_MODULE_11__["default"])(".burger-menu", ".burger");
+  (0,_modules_scrolling__WEBPACK_IMPORTED_MODULE_12__["default"])();
 });
 }();
 /******/ })()
