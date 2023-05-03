@@ -33,5 +33,5 @@ window.addEventListener("DOMContentLoaded", () => {
     images(".sizes-block");
     accordion(".accordion-heading");
     burger(".burger-menu", ".burger");
-    scrolling()
+    scrolling('.pageup')
 });

@@ -595,13 +595,95 @@ const modals = () => {
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-const scrolling = up => {
+const scrolling = upSelector => {
+  const upElem = document.querySelector(upSelector);
   window.addEventListener('scroll', () => {
     if (document.documentElement.scrollTop > 1650) {
-      console.log(1);
+      upElem.classList.add('animated', 'fadeIn');
+      upElem.classList.remove('fadeOut');
+    } else {
+      upElem.classList.add('fadeOut');
+      upElem.classList.remove('fadeIn');
     }
   });
+  //scrolling with requestanimationframe
+
+  let links = document.querySelectorAll('[href^="#"]'),
+    speed = 0.3;
+  links.forEach(link => {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      let widthTop = document.documentElement.scrollTop,
+        hash = this.hash,
+        toBlock = document.querySelector(hash).getBoundingClientRect().top,
+        start = null;
+      requestAnimationFrame(step);
+      function step(time) {
+        if (start === null) {
+          start = time;
+        }
+        let progress = time - start,
+          r = toBlock < 0 ? Math.max(widthTop - progress / speed, widthTop + toBlock) : Math.min(widthTop + progress / speed, widthTop + toBlock);
+        document.documentElement.scrollTo(0, r);
+        if (r != widthTop + toBlock) {
+          requestAnimationFrame(step);
+        } else {
+          location.hash = hash;
+        }
+      }
+    });
+  });
+
+  // // pureJS scroll
+  // const element = document.documentElement
+  // const body = document.body
+
+  // const calcScroll = () => {
+  //     upElem.addEventListener('click', function(event) {
+  //         let scrollTop = Math.round(body.scrollTop || element.scrollTop)
+
+  //         if(this.hash !== '') {
+  //             event.preventDefault()
+  //             let hashElement = document.querySelector(this.hash)
+  //             let hashElementTop = 0;
+
+  //             while (hashElement.offsetParent) {
+  //                 hashElementTop += hashElement.offsetTop;
+  //                 hashElement = hashElement.offsetParent
+  //             }
+
+  //             hashElementTop = Math.round(hashElementTop)
+  //             smoothScroll(scrollTop, hashElementTop, this.hash)
+  //         }
+  //     })
+  // }
+
+  // const smoothScroll = (from, to, hash) => {
+  //     let timeInterval = 1;
+  //     let prevScrollTop;
+  //     let speed;
+
+  //     if(to > from) {
+  //         speed = 30;
+  //     } else {
+  //         speed = -30;
+  //     }
+  //     let move = setInterval(function() {
+  //         let scrollTop = Math.round(body.scrollTop || element.scrollTop)
+
+  //         if(prevScrollTop === scrollTop || (to > from && scrollTop >= to || to < from && scrollTop <= to)) {
+  //             clearInterval(move)
+  //             history.replaceState(history.state, document.title, location.href.replace(/#.*$/g, '') + hash)
+  //         } else {
+  //             body.scrollTop += speed
+  //             element.scrollTop += speed
+  //             prevScrollTop = scrollTop
+  //         }
+  //     }, timeInterval)
+  // }
+  // calcScroll()
 };
+
 /* harmony default export */ __webpack_exports__["default"] = (scrolling);
 
 /***/ }),
@@ -870,7 +952,7 @@ window.addEventListener("DOMContentLoaded", () => {
   (0,_modules_images__WEBPACK_IMPORTED_MODULE_9__["default"])(".sizes-block");
   (0,_modules_accordion__WEBPACK_IMPORTED_MODULE_10__["default"])(".accordion-heading");
   (0,_modules_burger__WEBPACK_IMPORTED_MODULE_11__["default"])(".burger-menu", ".burger");
-  (0,_modules_scrolling__WEBPACK_IMPORTED_MODULE_12__["default"])();
+  (0,_modules_scrolling__WEBPACK_IMPORTED_MODULE_12__["default"])('.pageup');
 });
 }();
 /******/ })()
