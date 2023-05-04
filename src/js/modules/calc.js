@@ -1,15 +1,9 @@
-const calc = (
-    sizeSelector,
-    materialSelector,
-    optionsSelector,
-    promocodeSelector,
-    resultSelector
-) => {
-    const sizeBlock = document.querySelector(sizeSelector);
-    const materialBlock = document.querySelector(materialSelector);
-    const optionsBlock = document.querySelector(optionsSelector);
-    const promocodeBlock = document.querySelector(promocodeSelector);
-    const resultBlock = document.querySelector(resultSelector);
+const calc = () => {
+    const sizeBlock = document.querySelector("#size");
+    const materialBlock = document.querySelector("#material");
+    const optionsBlock = document.querySelector("#options");
+    const promocodeBlock = document.querySelector(".promocode");
+    const resultBlock = document.querySelector(".calc-price");
     let sum = 0;
     let obj = {};
 

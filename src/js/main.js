@@ -11,6 +11,7 @@ import images from "./modules/images";
 import accordion from "./modules/accordion";
 import burger from "./modules/burger";
 import scrolling from "./modules/scrolling";
+import drop from "./modules/drop";
 
 window.addEventListener("DOMContentLoaded", () => {
     modals();
@@ -28,10 +29,11 @@ window.addEventListener("DOMContentLoaded", () => {
     checkTextInputs('[name="email"]');
     checkCursorInput('[name="phone"]');
     showMoreStyles(".button-styles", "#styles .row");
-    calc("#size", "#material", "#options", ".promocode", ".calc-price");
+    calc();
     filter();
     images(".sizes-block");
     accordion(".accordion-heading");
     burger(".burger-menu", ".burger");
-    scrolling('.pageup')
+    scrolling('.pageup');
+    drop();
 });

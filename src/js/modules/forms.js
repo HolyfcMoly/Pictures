@@ -4,10 +4,9 @@ import calc from './calc.js';
 const forms = () => {
 const form = document.querySelectorAll("form");
 const input = document.querySelectorAll("input");
-const upload = document.querySelectorAll('[name="upload"')
+const upload = document.querySelectorAll('[name="upload"]')
 const select = document.querySelectorAll('select')
 const result = document.querySelector('.calc-price')
-const calcForm = document.querySelector('.calc_form')
 
 const message = {
     loading: "Загрузка...",
